@@ -17,11 +17,17 @@
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       background: #ffffff;
       color: #111111;
-      font-family: Arial, "Noto Sans JP", sans-serif;
+
+      /* フォント：メイリオ */
+      font-family: Meiryo, "メイリオ", sans-serif;
     }
 
     main {
@@ -32,9 +38,9 @@
     }
 
 
-    /* =========================
+    /* ========================================
        TOP
-    ========================= */
+    ======================================== */
 
     .top {
       text-align: center;
@@ -44,41 +50,43 @@
     h1 {
       margin: 0 0 15px;
       font-size: 1.8rem;
-      font-weight: 500;
+      font-weight: normal;
       letter-spacing: 0.12em;
     }
 
     .notice {
-      margin: 0 0 45px;
+      margin: 0 0 40px;
       color: #777777;
       font-size: 0.85rem;
     }
 
 
-    /* =========================
+    /* ========================================
        LINE
-    ========================= */
+    ======================================== */
 
-    .line-placeholder {
-      width: 150px;
-      height: 150px;
+    .line-area {
+      text-align: center;
+      margin-top: 35px;
+    }
+
+    .line-title {
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+    }
+
+    .line-qr {
+      display: block;
+      width: 160px;
+      height: auto;
       margin: 0 auto;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      border: 1px solid #dddddd;
-
-      color: #999999;
-      font-size: 0.8rem;
-      letter-spacing: 0.1em;
     }
 
 
-    /* =========================
-       共通
-    ========================= */
+    /* ========================================
+       SECTION
+    ======================================== */
 
     section {
       margin-top: 100px;
@@ -91,34 +99,35 @@
       border-bottom: 1px solid #dddddd;
 
       font-size: 1.25rem;
-      font-weight: 500;
+      font-weight: normal;
       letter-spacing: 0.08em;
     }
 
 
-    /* =========================
-       CALENDAR
-    ========================= */
+    /* ========================================
+       GOOGLE CALENDAR
+    ======================================== */
 
-    .calendar-placeholder {
+    .calendar-container {
+      position: relative;
       width: 100%;
-      height: 600px;
+      overflow: hidden;
 
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      border: 1px solid #eeeeee;
+      background: #ffffff;
+    }
 
-      border: 1px solid #dddddd;
-
-      color: #999999;
-      font-size: 0.85rem;
-      letter-spacing: 0.1em;
+    .calendar-container iframe {
+      display: block;
+      width: 100%;
+      height: 700px;
+      border: 0;
     }
 
 
-    /* =========================
+    /* ========================================
        STILL
-    ========================= */
+    ======================================== */
 
     .still-grid {
       display: grid;
@@ -130,30 +139,79 @@
       margin: 0 0 15px;
 
       font-size: 1rem;
-      font-weight: 500;
+      font-weight: normal;
       letter-spacing: 0.08em;
     }
 
-    .still-box {
+    .still-slider {
+      position: relative;
+
       width: 100%;
       aspect-ratio: 4 / 5;
 
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      overflow: hidden;
 
       background: #f7f7f7;
-      border: 1px solid #eeeeee;
 
-      color: #999999;
-      font-size: 0.8rem;
-      letter-spacing: 0.1em;
+      cursor: pointer;
+    }
+
+    .still-slider img {
+      position: absolute;
+
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: contain;
+
+      background: #f7f7f7;
+
+      opacity: 0;
+
+      transition: opacity 0.7s ease;
+    }
+
+    .still-slider img.active {
+      opacity: 1;
     }
 
 
-    /* =========================
+    /* 写真の上にマウスを置いたときの案内 */
+
+    .slide-guide {
+      position: absolute;
+
+      left: 50%;
+      bottom: 15px;
+
+      transform: translateX(-50%);
+
+      z-index: 10;
+
+      padding: 5px 10px;
+
+      background: rgba(255,255,255,0.75);
+
+      color: #555555;
+
+      font-size: 0.7rem;
+
+      opacity: 0;
+
+      transition: opacity 0.3s;
+    }
+
+    .still-slider:hover .slide-guide {
+      opacity: 1;
+    }
+
+
+    /* ========================================
        MOVIE
-    ========================= */
+    ======================================== */
 
     .movie-grid {
       display: grid;
@@ -165,30 +223,32 @@
       margin: 0 0 15px;
 
       font-size: 1rem;
-      font-weight: 500;
+      font-weight: normal;
       letter-spacing: 0.08em;
     }
 
-    .movie-box {
+    .movie-coming-soon {
       width: 100%;
       aspect-ratio: 16 / 9;
 
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
 
       background: #f7f7f7;
+
       border: 1px solid #eeeeee;
 
-      color: #999999;
-      font-size: 0.8rem;
-      letter-spacing: 0.1em;
+      color: #777777;
+
+      font-size: 1rem;
+      letter-spacing: 0.18em;
     }
 
 
-    /* =========================
+    /* ========================================
        FOOTER
-    ========================= */
+    ======================================== */
 
     footer {
       margin-top: 120px;
@@ -199,13 +259,14 @@
       text-align: center;
 
       color: #aaaaaa;
+
       font-size: 0.75rem;
     }
 
 
-    /* =========================
-       スマホ
-    ========================= */
+    /* ========================================
+       MOBILE
+    ======================================== */
 
     @media (max-width: 700px) {
 
@@ -222,18 +283,26 @@
         margin-top: 70px;
       }
 
-      .calendar-placeholder {
-        height: 500px;
+      .calendar-container {
+        overflow-x: auto;
+      }
+
+      .calendar-container iframe {
+        height: 600px;
       }
 
       .still-grid {
         grid-template-columns: 1fr;
-        gap: 50px;
+        gap: 55px;
       }
 
       .movie-grid {
         grid-template-columns: 1fr;
         gap: 50px;
+      }
+
+      .slide-guide {
+        opacity: 1;
       }
 
     }
@@ -248,9 +317,9 @@
 <main>
 
 
-  <!-- =========================
+  <!-- ========================================
        TOP
-  ========================= -->
+  ======================================== -->
 
   <header class="top">
 
@@ -261,37 +330,53 @@
     </p>
 
 
-    <!-- LINE QRをここに入れる -->
+    <!-- ======================================
+         公式LINE
+    ======================================= -->
 
-    <div class="line-placeholder">
-      LINE QR
+    <div class="line-area">
+
+      <div class="line-title">
+        公式LINE
+      </div>
+
+      <img
+        src="公式LINE.png"
+        alt="涼川笑鈴 公式LINE QRコード"
+        class="line-qr"
+      >
+
     </div>
 
   </header>
 
 
 
-  <!-- =========================
+  <!-- ========================================
        CALENDAR
-  ========================= -->
+  ======================================== -->
 
   <section>
 
     <h2>稼働可能日カレンダー</h2>
 
-    <!-- カレンダーをここに入れる -->
+    <div class="calendar-container">
 
-    <div class="calendar-placeholder">
-      CALENDAR
+      <iframe
+        src="https://calendar.google.com/calendar/embed?src=c79d8e2aa86ab4a48f9f56a795526f1757a7de81da0794af9cc7db58e9824a5512%40group.calendar.google.com&ctz=Asia%2FTokyo"
+        scrolling="no"
+        loading="lazy">
+      </iframe>
+
     </div>
 
   </section>
 
 
 
-  <!-- =========================
+  <!-- ========================================
        STILL
-  ========================= -->
+  ======================================== -->
 
   <section>
 
@@ -300,53 +385,117 @@
     <div class="still-grid">
 
 
-      <!-- STILL 1 -->
+      <!-- ====================================
+           STILL 01
+      ===================================== -->
 
       <div class="still-item">
 
-        <h3>Still 1</h3>
+        <h3>Still 01</h3>
 
-        <div class="still-box">
-          PHOTO
+        <div class="still-slider">
+
+          <img src="S__79380534.jpg" class="active" alt="Still 01">
+          <img src="S__79380535.jpg" alt="Still 01">
+          <img src="S__79380536.jpg" alt="Still 01">
+          <img src="S__79380538.jpg" alt="Still 01">
+          <img src="S__79380541.jpg" alt="Still 01">
+          <img src="S__79380543.jpg" alt="Still 01">
+          <img src="S__79380544.jpg" alt="Still 01">
+          <img src="S__79380545.jpg" alt="Still 01">
+          <img src="S__79380548.jpg" alt="Still 01">
+          <img src="S__79380549.jpg" alt="Still 01">
+          <img src="涼川笑鈴スーツ.jpg" alt="Still 01">
+          <img src="涼川笑鈴メイク無し.jpg" alt="Still 01">
+
+          <div class="slide-guide">
+            HOVER / TAP
+          </div>
+
         </div>
 
       </div>
 
 
-      <!-- STILL 2 -->
+
+      <!-- ====================================
+           STILL 02
+      ===================================== -->
 
       <div class="still-item">
 
-        <h3>Still 2</h3>
+        <h3>Still 02</h3>
 
-        <div class="still-box">
-          PHOTO
+        <div class="still-slider">
+
+          <img src="dance.jpg" class="active" alt="Still 02">
+          <img src="dance２.jpg" alt="Still 02">
+          <img src="dance３.jpg" alt="Still 02">
+          <img src="dance４.jpg" alt="Still 02">
+          <img src="dance５.jpg" alt="Still 02">
+          <img src="dance６.jpg" alt="Still 02">
+          <img src="dance７.jpg" alt="Still 02">
+          <img src="dance８.jpg" alt="Still 02">
+          <img src="dance９.jpg" alt="Still 02">
+          <img src="dance１０.jpg" alt="Still 02">
+          <img src="dance１１.jpg" alt="Still 02">
+          <img src="dance１２.jpg" alt="Still 02">
+          <img src="dance１３.jpg" alt="Still 02">
+          <img src="dance１４.jpg" alt="Still 02">
+
+          <div class="slide-guide">
+            HOVER / TAP
+          </div>
+
         </div>
 
       </div>
 
 
-      <!-- STILL 3 -->
+
+      <!-- ====================================
+           STILL 03
+      ===================================== -->
 
       <div class="still-item">
 
-        <h3>Still 3</h3>
+        <h3>Still 03</h3>
 
-        <div class="still-box">
-          PHOTO
+        <div class="still-slider">
+
+          <img src="セーラー.jpg" class="active" alt="Still 03">
+          <img src="セーラー２.jpg" alt="Still 03">
+          <img src="制服.jpg" alt="Still 03">
+          <img src="制服２.jpg" alt="Still 03">
+
+          <div class="slide-guide">
+            HOVER / TAP
+          </div>
+
         </div>
 
       </div>
 
 
-      <!-- STILL 4 -->
+
+      <!-- ====================================
+           STILL 04
+      ===================================== -->
 
       <div class="still-item">
 
-        <h3>Still 4</h3>
+        <h3>Still 04（補正有り）</h3>
 
-        <div class="still-box">
-          PHOTO
+        <div class="still-slider">
+
+          <img src="kimono.jpg" class="active" alt="Still 04 補正有り">
+          <img src="着物.jpg" alt="Still 04 補正有り">
+          <img src="着物２.jpg" alt="Still 04 補正有り">
+
+          <div class="slide-guide">
+            HOVER / TAP
+          </div>
+
         </div>
 
       </div>
@@ -358,9 +507,9 @@
 
 
 
-  <!-- =========================
+  <!-- ========================================
        MOVIE
-  ========================= -->
+  ======================================== -->
 
   <section>
 
@@ -369,27 +518,28 @@
     <div class="movie-grid">
 
 
-      <!-- MOVIE 1 -->
+      <!-- MOVIE 01 -->
 
       <div class="movie-item">
 
         <h3>Movie</h3>
 
-        <div class="movie-box">
-          MOVIE
+        <div class="movie-coming-soon">
+          Coming Soon
         </div>
 
       </div>
 
 
-      <!-- MOVIE 2 -->
+
+      <!-- MOVIE 02 -->
 
       <div class="movie-item">
 
         <h3>Movie</h3>
 
-        <div class="movie-box">
-          MOVIE
+        <div class="movie-coming-soon">
+          Coming Soon
         </div>
 
       </div>
@@ -401,9 +551,9 @@
 
 
 
-  <!-- =========================
+  <!-- ========================================
        FOOTER
-  ========================= -->
+  ======================================== -->
 
   <footer>
     © 涼川 笑鈴
@@ -411,6 +561,114 @@
 
 
 </main>
+
+
+
+<script>
+
+  /* ==========================================
+     STILL SLIDESHOW
+
+     PC
+     カーソルを合わせる → 自動スライド
+
+     スマホ
+     タップ → 開始 / 停止
+  =========================================== */
+
+  document.querySelectorAll(".still-slider").forEach(function(slider) {
+
+    const images = slider.querySelectorAll("img");
+
+    let current = 0;
+    let timer = null;
+
+
+    /* 次の写真 */
+
+    function nextImage() {
+
+      images[current].classList.remove("active");
+
+      current++;
+
+      if (current >= images.length) {
+        current = 0;
+      }
+
+      images[current].classList.add("active");
+
+    }
+
+
+    /* スライド開始 */
+
+    function startSlider() {
+
+      if (timer !== null) {
+        return;
+      }
+
+      timer = setInterval(function() {
+
+        nextImage();
+
+      }, 1800);
+
+    }
+
+
+    /* スライド停止 */
+
+    function stopSlider() {
+
+      if (timer !== null) {
+
+        clearInterval(timer);
+
+        timer = null;
+
+      }
+
+    }
+
+
+    /* PC */
+
+    slider.addEventListener(
+      "mouseenter",
+      startSlider
+    );
+
+    slider.addEventListener(
+      "mouseleave",
+      stopSlider
+    );
+
+
+    /* スマートフォン */
+
+    slider.addEventListener(
+      "click",
+      function() {
+
+        if (timer === null) {
+
+          startSlider();
+
+        } else {
+
+          stopSlider();
+
+        }
+
+      }
+    );
+
+  });
+
+</script>
+
 
 </body>
 
