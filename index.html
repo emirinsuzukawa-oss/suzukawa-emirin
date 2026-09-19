@@ -18,7 +18,7 @@
       margin: 0;
       background: #ffffff;
       color: #222222;
-      font-family: Meiryo, "メイリオ", sans-serif;
+      font-family: Meiryo, "メイリオ", Arial, sans-serif;
       line-height: 1.7;
     }
 
@@ -27,7 +27,52 @@
       margin: 0 auto;
     }
 
+    /* =========================
+       Language Switch
+    ========================= */
+
+    .language-switch {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+    }
+
+    .language-switch button {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      padding: 4px 2px;
+      color: #999999;
+      font: inherit;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .language-switch button:hover {
+      color: #222222;
+    }
+
+    .language-switch button.active {
+      color: #222222;
+      font-weight: bold;
+    }
+
+    .language-divider {
+      color: #cccccc;
+    }
+
+    /* =========================
+       Header
+    ========================= */
+
     header {
+      position: relative;
       text-align: center;
       padding: 60px 20px 35px;
       border-bottom: 1px solid #eeeeee;
@@ -59,7 +104,6 @@
       letter-spacing: 0.06em;
     }
 
-
     /* =========================
        LINE
     ========================= */
@@ -80,7 +124,6 @@
       height: auto;
       margin: 0 auto;
     }
-
 
     /* =========================
        Google Calendar
@@ -108,7 +151,6 @@
       height: 700px;
       border: 0;
     }
-
 
     /* =========================
        Still
@@ -172,7 +214,6 @@
       font-size: 12px;
     }
 
-
     /* =========================
        Movie
     ========================= */
@@ -196,7 +237,6 @@
       color: #777777;
     }
 
-
     /* =========================
        Footer
     ========================= */
@@ -208,7 +248,6 @@
       color: #999999;
     }
 
-
     /* =========================
        Smartphone
     ========================= */
@@ -216,11 +255,16 @@
     @media (max-width: 700px) {
 
       header {
-        padding-top: 40px;
+        padding-top: 70px;
       }
 
       header h1 {
         font-size: 24px;
+      }
+
+      .language-switch {
+        top: 18px;
+        right: 18px;
       }
 
       section {
@@ -269,9 +313,23 @@
 
   <header>
 
-    <h1>関係者専用ページ</h1>
+    <div class="language-switch" aria-label="Language selection">
+      <button type="button" id="lang-jp" onclick="setLanguage('ja')">
+        JP
+      </button>
 
-    <p class="warning">
+      <span class="language-divider">|</span>
+
+      <button type="button" id="lang-en" onclick="setLanguage('en')">
+        EN
+      </button>
+    </div>
+
+    <h1 id="page-title">
+      関係者専用ページ
+    </h1>
+
+    <p class="warning" id="warning-text">
       ※このページは検索しても表示されません。無断転送・無断転用はおやめください。
     </p>
 
@@ -287,7 +345,7 @@
 
     <div class="container line-area">
 
-      <p>
+      <p id="contact-text">
         お問い合わせ、ご連絡はLINEでお願いします。<br>
         お急ぎの場合はお電話ください。
       </p>
@@ -296,6 +354,7 @@
         src="公式LINE.png"
         alt="涼川笑鈴 公式LINE QRコード"
         class="line-qr"
+        id="line-qr"
       >
 
     </div>
@@ -314,7 +373,7 @@
 
       <h2>Schedule</h2>
 
-      <p class="schedule-note">
+      <p class="schedule-note" id="schedule-note">
         ※スケジュールはなるべく反映していますが、変更となっている場合がございます。<br>
         表示上は埋まっている日程についてもご相談ください。
       </p>
@@ -324,6 +383,7 @@
         <iframe
           src="https://calendar.google.com/calendar/embed?src=c_79d8e2ae86ab4a8f9f56a795526f1757a7de81da0794af9cc7db58e9824a5512%40group.calendar.google.com&amp;ctz=Asia%2FTokyo"
           title="涼川笑鈴 スケジュール"
+          id="calendar-frame"
           loading="lazy"
           frameborder="0"
           scrolling="no">
@@ -347,7 +407,7 @@
 
       <h2>Still</h2>
 
-      <p class="still-note">
+      <p class="still-note" id="still-note">
         PC：写真にカーソルを合わせると自動再生します。<br>
         スマートフォン：写真をタップすると再生・停止できます。
       </p>
@@ -449,7 +509,9 @@
 
         <div class="still-card">
 
-          <h3>Still 04（補正有り）</h3>
+          <h3 id="still04-title">
+            Still 04（補正有り）
+          </h3>
 
           <div class="slider">
 
@@ -509,6 +571,198 @@
   <footer>
     © 涼川 笑鈴
   </footer>
+
+
+
+  <!-- =========================
+       Language
+  ========================== -->
+
+  <script>
+
+    const translations = {
+
+      ja: {
+        htmlLang: "ja",
+        documentTitle: "涼川 笑鈴｜関係者専用ページ",
+
+        pageTitle:
+          "関係者専用ページ",
+
+        warning:
+          "※このページは検索しても表示されません。無断転送・無断転用はおやめください。",
+
+        contact:
+          "お問い合わせ、ご連絡はLINEでお願いします。<br>お急ぎの場合はお電話ください。",
+
+        schedule:
+          "※スケジュールはなるべく反映していますが、変更となっている場合がございます。<br>表示上は埋まっている日程についてもご相談ください。",
+
+        stillNote:
+          "PC：写真にカーソルを合わせると自動再生します。<br>スマートフォン：写真をタップすると再生・停止できます。",
+
+        tap:
+          "タップで再生 / 停止",
+
+        still04:
+          "Still 04（補正有り）",
+
+        lineAlt:
+          "涼川笑鈴 公式LINE QRコード",
+
+        calendarTitle:
+          "涼川笑鈴 スケジュール",
+
+        footer:
+          "© 涼川 笑鈴"
+      },
+
+
+      en: {
+        htmlLang: "en",
+        documentTitle: "Emirin Suzukawa | For Industry Professionals",
+
+        pageTitle:
+          "For Industry Professionals",
+
+        warning:
+          "This page is not indexed by search engines. Please do not share or reproduce its contents without permission.",
+
+        contact:
+          "Please contact me via LINE.<br>For urgent inquiries, please call.",
+
+        schedule:
+          "The schedule is updated as regularly as possible, but availability may change.<br>Please feel free to inquire even if a date appears unavailable.",
+
+        stillNote:
+          "Desktop: Hover over a photo to start the slideshow.<br>Smartphone: Tap a photo to play or pause the slideshow.",
+
+        tap:
+          "Tap to Play / Pause",
+
+        still04:
+          "Still 04 (Retouched)",
+
+        lineAlt:
+          "Emirin Suzukawa Official LINE QR Code",
+
+        calendarTitle:
+          "Emirin Suzukawa Schedule",
+
+        footer:
+          "© Emirin Suzukawa"
+      }
+
+    };
+
+
+    function setLanguage(lang, save = true) {
+
+      const t = translations[lang];
+
+      document.documentElement.lang = t.htmlLang;
+
+      document.title = t.documentTitle;
+
+      document.getElementById("page-title").textContent =
+        t.pageTitle;
+
+      document.getElementById("warning-text").textContent =
+        t.warning;
+
+      document.getElementById("contact-text").innerHTML =
+        t.contact;
+
+      document.getElementById("schedule-note").innerHTML =
+        t.schedule;
+
+      document.getElementById("still-note").innerHTML =
+        t.stillNote;
+
+      document.getElementById("still04-title").textContent =
+        t.still04;
+
+      document.getElementById("line-qr").alt =
+        t.lineAlt;
+
+      document.getElementById("calendar-frame").title =
+        t.calendarTitle;
+
+      document.querySelector("footer").textContent =
+        t.footer;
+
+
+      document.querySelectorAll(".tap-guide").forEach((item) => {
+        item.textContent = t.tap;
+      });
+
+
+      document.getElementById("lang-jp").classList.toggle(
+        "active",
+        lang === "ja"
+      );
+
+      document.getElementById("lang-en").classList.toggle(
+        "active",
+        lang === "en"
+      );
+
+
+      if (save) {
+        localStorage.setItem("preferredLanguage", lang);
+      }
+
+    }
+
+
+    function detectLanguage() {
+
+      /*
+        1. ユーザーが以前 JP / EN を選択していた場合
+           → その選択を最優先
+      */
+
+      const savedLanguage =
+        localStorage.getItem("preferredLanguage");
+
+      if (
+        savedLanguage === "ja" ||
+        savedLanguage === "en"
+      ) {
+        setLanguage(savedLanguage, false);
+        return;
+      }
+
+
+      /*
+        2. 選択履歴がない場合
+           ブラウザの優先言語を確認
+
+           英語 → EN
+           それ以外 → JP
+      */
+
+      const browserLanguages =
+        navigator.languages && navigator.languages.length
+          ? navigator.languages
+          : [navigator.language || "ja"];
+
+      const primaryLanguage =
+        browserLanguages[0].toLowerCase();
+
+
+      if (primaryLanguage.startsWith("en")) {
+        setLanguage("en", false);
+      } else {
+        setLanguage("ja", false);
+      }
+
+    }
+
+
+    detectLanguage();
+
+  </script>
 
 
 
