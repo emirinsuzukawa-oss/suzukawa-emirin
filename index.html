@@ -32,26 +32,41 @@
     ========================= */
 
     .language-switch {
-      position: absolute;
-      top: 20px;
-      right: 25px;
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      z-index: 99999;
+
       display: flex;
       align-items: center;
       gap: 8px;
+
+      padding: 7px 12px;
+
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid #dddddd;
+      border-radius: 20px;
+
       font-family: Arial, sans-serif;
-      font-size: 13px;
+      font-size: 14px;
       letter-spacing: 0.08em;
+
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     }
 
     .language-switch button {
       appearance: none;
+      -webkit-appearance: none;
+
       border: 0;
       background: transparent;
-      padding: 4px 2px;
+
+      padding: 2px 3px;
+
       color: #999999;
       font: inherit;
+
       cursor: pointer;
-      transition: color 0.2s ease;
     }
 
     .language-switch button:hover {
@@ -72,7 +87,6 @@
     ========================= */
 
     header {
-      position: relative;
       text-align: center;
       padding: 60px 20px 35px;
       border-bottom: 1px solid #eeeeee;
@@ -263,8 +277,10 @@
       }
 
       .language-switch {
-        top: 18px;
-        right: 18px;
+        top: 12px;
+        right: 12px;
+        font-size: 13px;
+        padding: 6px 10px;
       }
 
       section {
@@ -308,22 +324,38 @@
 
 
   <!-- =========================
+       Language Switch
+  ========================== -->
+
+  <div class="language-switch" aria-label="Language selection">
+
+    <button
+      type="button"
+      id="lang-jp"
+      onclick="setLanguage('ja')"
+    >
+      JP
+    </button>
+
+    <span class="language-divider">|</span>
+
+    <button
+      type="button"
+      id="lang-en"
+      onclick="setLanguage('en')"
+    >
+      EN
+    </button>
+
+  </div>
+
+
+
+  <!-- =========================
        Header
   ========================== -->
 
   <header>
-
-    <div class="language-switch" aria-label="Language selection">
-      <button type="button" id="lang-jp" onclick="setLanguage('ja')">
-        JP
-      </button>
-
-      <span class="language-divider">|</span>
-
-      <button type="button" id="lang-en" onclick="setLanguage('en')">
-        EN
-      </button>
-    </div>
 
     <h1 id="page-title">
       関係者専用ページ
@@ -568,14 +600,14 @@
        Footer
   ========================== -->
 
-  <footer>
+  <footer id="footer-text">
     © 涼川 笑鈴
   </footer>
 
 
 
   <!-- =========================
-       Language
+       Language System
   ========================== -->
 
   <script>
@@ -583,8 +615,9 @@
     const translations = {
 
       ja: {
-        htmlLang: "ja",
-        documentTitle: "涼川 笑鈴｜関係者専用ページ",
+
+        documentTitle:
+          "涼川 笑鈴｜関係者専用ページ",
 
         pageTitle:
           "関係者専用ページ",
@@ -619,8 +652,9 @@
 
 
       en: {
-        htmlLang: "en",
-        documentTitle: "Emirin Suzukawa | For Industry Professionals",
+
+        documentTitle:
+          "Emirin Suzukawa | For Industry Professionals",
 
         pageTitle:
           "For Industry Professionals",
@@ -660,40 +694,56 @@
 
       const t = translations[lang];
 
-      document.documentElement.lang = t.htmlLang;
+      if (!t) {
+        return;
+      }
+
+
+      document.documentElement.lang = lang;
 
       document.title = t.documentTitle;
+
 
       document.getElementById("page-title").textContent =
         t.pageTitle;
 
+
       document.getElementById("warning-text").textContent =
         t.warning;
+
 
       document.getElementById("contact-text").innerHTML =
         t.contact;
 
+
       document.getElementById("schedule-note").innerHTML =
         t.schedule;
+
 
       document.getElementById("still-note").innerHTML =
         t.stillNote;
 
+
       document.getElementById("still04-title").textContent =
         t.still04;
+
 
       document.getElementById("line-qr").alt =
         t.lineAlt;
 
+
       document.getElementById("calendar-frame").title =
         t.calendarTitle;
 
-      document.querySelector("footer").textContent =
+
+      document.getElementById("footer-text").textContent =
         t.footer;
 
 
       document.querySelectorAll(".tap-guide").forEach((item) => {
+
         item.textContent = t.tap;
+
       });
 
 
@@ -702,6 +752,7 @@
         lang === "ja"
       );
 
+
       document.getElementById("lang-en").classList.toggle(
         "active",
         lang === "en"
@@ -709,52 +760,117 @@
 
 
       if (save) {
-        localStorage.setItem("preferredLanguage", lang);
+
+        try {
+
+          localStorage.setItem(
+            "preferredLanguage",
+            lang
+          );
+
+        } catch (error) {
+
+          console.log(
+            "Language preference could not be saved."
+          );
+
+        }
+
       }
 
     }
 
 
+
     function detectLanguage() {
 
-      /*
-        1. ユーザーが以前 JP / EN を選択していた場合
-           → その選択を最優先
-      */
+      let savedLanguage = null;
 
-      const savedLanguage =
-        localStorage.getItem("preferredLanguage");
+
+      try {
+
+        savedLanguage =
+          localStorage.getItem(
+            "preferredLanguage"
+          );
+
+      } catch (error) {
+
+        savedLanguage = null;
+
+      }
+
+
+      /*
+        手動で選んだ言語が保存されている場合は、
+        その設定を最優先
+      */
 
       if (
         savedLanguage === "ja" ||
         savedLanguage === "en"
       ) {
-        setLanguage(savedLanguage, false);
+
+        setLanguage(
+          savedLanguage,
+          false
+        );
+
         return;
+
       }
 
 
       /*
-        2. 選択履歴がない場合
-           ブラウザの優先言語を確認
-
-           英語 → EN
-           それ以外 → JP
+        初回アクセス時は
+        ブラウザの優先言語を確認
       */
 
-      const browserLanguages =
-        navigator.languages && navigator.languages.length
-          ? navigator.languages
-          : [navigator.language || "ja"];
-
-      const primaryLanguage =
-        browserLanguages[0].toLowerCase();
+      let browserLanguage = "ja";
 
 
-      if (primaryLanguage.startsWith("en")) {
-        setLanguage("en", false);
+      if (
+        navigator.languages &&
+        navigator.languages.length > 0
+      ) {
+
+        browserLanguage =
+          navigator.languages[0];
+
+      } else if (navigator.language) {
+
+        browserLanguage =
+          navigator.language;
+
+      }
+
+
+      browserLanguage =
+        browserLanguage.toLowerCase();
+
+
+      /*
+        英語環境なら英語
+        それ以外は日本語
+      */
+
+      if (
+        browserLanguage === "en" ||
+        browserLanguage.startsWith("en-")
+      ) {
+
+        setLanguage(
+          "en",
+          false
+        );
+
       } else {
-        setLanguage("ja", false);
+
+        setLanguage(
+          "ja",
+          false
+        );
+
       }
 
     }
@@ -772,38 +888,62 @@
 
   <script>
 
-    const sliders = document.querySelectorAll(".slider");
+    const sliders =
+      document.querySelectorAll(".slider");
+
 
     const hasMouse =
-      window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+      window.matchMedia(
+        "(hover: hover) and (pointer: fine)"
+      ).matches;
 
 
     sliders.forEach((slider) => {
 
-      const images = slider.querySelectorAll("img");
+      const images =
+        slider.querySelectorAll("img");
+
 
       let current = 0;
+
       let timer = null;
 
 
       function nextImage() {
 
-        images[current].classList.remove("active");
+        images[current].classList.remove(
+          "active"
+        );
 
-        current = (current + 1) % images.length;
 
-        images[current].classList.add("active");
+        current =
+          (current + 1) % images.length;
+
+
+        images[current].classList.add(
+          "active"
+        );
 
       }
 
 
       function startSlider() {
 
-        if (timer || images.length <= 1) {
+        if (
+          timer ||
+          images.length <= 1
+        ) {
+
           return;
+
         }
 
-        timer = setInterval(nextImage, 1800);
+
+        timer =
+          setInterval(
+            nextImage,
+            1800
+          );
 
       }
 
@@ -811,8 +951,11 @@
       function stopSlider() {
 
         if (!timer) {
+
           return;
+
         }
+
 
         clearInterval(timer);
 
@@ -828,6 +971,7 @@
           startSlider
         );
 
+
         slider.addEventListener(
           "mouseleave",
           stopSlider
@@ -840,9 +984,13 @@
           () => {
 
             if (timer) {
+
               stopSlider();
+
             } else {
+
               startSlider();
+
             }
 
           }
