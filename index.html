@@ -18,7 +18,13 @@
       margin: 0;
       background: #ffffff;
       color: #222222;
-      font-family: Meiryo, "メイリオ", Arial, sans-serif;
+      font-family:
+        Meiryo,
+        "メイリオ",
+        "Noto Sans Thai",
+        "Noto Sans KR",
+        Arial,
+        sans-serif;
       line-height: 1.7;
     }
 
@@ -39,7 +45,7 @@
 
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
 
       padding: 7px 12px;
 
@@ -48,8 +54,8 @@
       border-radius: 20px;
 
       font-family: Arial, sans-serif;
-      font-size: 14px;
-      letter-spacing: 0.08em;
+      font-size: 13px;
+      letter-spacing: 0.05em;
 
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     }
@@ -269,7 +275,7 @@
     @media (max-width: 700px) {
 
       header {
-        padding-top: 70px;
+        padding-top: 80px;
       }
 
       header h1 {
@@ -279,8 +285,9 @@
       .language-switch {
         top: 12px;
         right: 12px;
-        font-size: 13px;
-        padding: 6px 10px;
+        font-size: 12px;
+        padding: 6px 9px;
+        gap: 5px;
       }
 
       section {
@@ -327,12 +334,16 @@
        Language Switch
   ========================== -->
 
-  <div class="language-switch" aria-label="Language selection">
+  <div
+    class="language-switch"
+    aria-label="Language selection"
+  >
 
     <button
       type="button"
-      id="lang-jp"
+      id="lang-ja"
       onclick="setLanguage('ja')"
+      aria-label="日本語"
     >
       JP
     </button>
@@ -343,8 +354,31 @@
       type="button"
       id="lang-en"
       onclick="setLanguage('en')"
+      aria-label="English"
     >
       EN
+    </button>
+
+    <span class="language-divider">|</span>
+
+    <button
+      type="button"
+      id="lang-th"
+      onclick="setLanguage('th')"
+      aria-label="ภาษาไทย"
+    >
+      TH
+    </button>
+
+    <span class="language-divider">|</span>
+
+    <button
+      type="button"
+      id="lang-ko"
+      onclick="setLanguage('ko')"
+      aria-label="한국어"
+    >
+      KO
     </button>
 
   </div>
@@ -361,7 +395,10 @@
       関係者専用ページ
     </h1>
 
-    <p class="warning" id="warning-text">
+    <p
+      class="warning"
+      id="warning-text"
+    >
       ※このページは検索しても表示されません。無断転送・無断転用はおやめください。
     </p>
 
@@ -405,7 +442,10 @@
 
       <h2>Schedule</h2>
 
-      <p class="schedule-note" id="schedule-note">
+      <p
+        class="schedule-note"
+        id="schedule-note"
+      >
         ※スケジュールはなるべく反映していますが、変更となっている場合がございます。<br>
         表示上は埋まっている日程についてもご相談ください。
       </p>
@@ -439,7 +479,10 @@
 
       <h2>Still</h2>
 
-      <p class="still-note" id="still-note">
+      <p
+        class="still-note"
+        id="still-note"
+      >
         PC：写真にカーソルを合わせると自動再生します。<br>
         スマートフォン：写真をタップすると再生・停止できます。
       </p>
@@ -614,6 +657,10 @@
 
     const translations = {
 
+      /* =========================
+         日本語
+      ========================= */
+
       ja: {
 
         documentTitle:
@@ -651,6 +698,10 @@
       },
 
 
+      /* =========================
+         English
+      ========================= */
+
       en: {
 
         documentTitle:
@@ -685,10 +736,97 @@
 
         footer:
           "© Emirin Suzukawa"
+      },
+
+
+      /* =========================
+         ภาษาไทย / Thai
+      ========================= */
+
+      th: {
+
+        documentTitle:
+          "Emirin Suzukawa | สำหรับผู้เกี่ยวข้องในวงการ",
+
+        pageTitle:
+          "สำหรับผู้เกี่ยวข้องในวงการ",
+
+        warning:
+          "หน้านี้จะไม่แสดงในผลการค้นหาของเครื่องมือค้นหา กรุณาอย่าเผยแพร่ ส่งต่อ หรือนำเนื้อหาไปใช้โดยไม่ได้รับอนุญาต",
+
+        contact:
+          "กรุณาติดต่อผ่าน LINE<br>หากเป็นเรื่องเร่งด่วน กรุณาติดต่อทางโทรศัพท์",
+
+        schedule:
+          "พยายามอัปเดตกำหนดการให้เป็นปัจจุบันมากที่สุด แต่อาจมีการเปลี่ยนแปลงได้<br>แม้วันที่แสดงว่าไม่ว่าง กรุณาติดต่อสอบถามได้",
+
+        stillNote:
+          "คอมพิวเตอร์: วางเคอร์เซอร์บนรูปภาพเพื่อเริ่มสไลด์โชว์อัตโนมัติ<br>สมาร์ตโฟน: แตะรูปภาพเพื่อเล่นหรือหยุดสไลด์โชว์",
+
+        tap:
+          "แตะเพื่อเล่น / หยุด",
+
+        still04:
+          "Still 04 (ปรับแต่งภาพแล้ว)",
+
+        lineAlt:
+          "QR Code LINE อย่างเป็นทางการของ Emirin Suzukawa",
+
+        calendarTitle:
+          "ตารางงานของ Emirin Suzukawa",
+
+        footer:
+          "© Emirin Suzukawa"
+      },
+
+
+      /* =========================
+         한국어 / Korean
+      ========================= */
+
+      ko: {
+
+        documentTitle:
+          "Emirin Suzukawa | 관계자 전용 페이지",
+
+        pageTitle:
+          "관계자 전용 페이지",
+
+        warning:
+          "이 페이지는 검색 엔진에 노출되지 않습니다. 허가 없이 내용을 공유, 전송 또는 무단으로 사용하지 말아 주세요.",
+
+        contact:
+          "문의 및 연락은 LINE으로 부탁드립니다.<br>긴급한 경우에는 전화로 연락해 주세요.",
+
+        schedule:
+          "스케줄은 가능한 한 최신 상태로 반영하고 있으나 변경될 수 있습니다.<br>일정이 예약된 것으로 표시되어 있어도 문의해 주세요.",
+
+        stillNote:
+          "PC: 사진 위에 마우스 커서를 올리면 슬라이드쇼가 자동으로 재생됩니다.<br>스마트폰: 사진을 탭하면 슬라이드쇼를 재생하거나 일시 정지할 수 있습니다.",
+
+        tap:
+          "탭하여 재생 / 정지",
+
+        still04:
+          "Still 04 (보정 있음)",
+
+        lineAlt:
+          "Emirin Suzukawa 공식 LINE QR 코드",
+
+        calendarTitle:
+          "Emirin Suzukawa 스케줄",
+
+        footer:
+          "© Emirin Suzukawa"
       }
 
     };
 
+
+
+    /* =========================
+       言語切替
+    ========================== */
 
     function setLanguage(lang, save = true) {
 
@@ -699,65 +837,138 @@
       }
 
 
+      /* HTML言語 */
+
       document.documentElement.lang = lang;
 
-      document.title = t.documentTitle;
+
+      /* ブラウザのタイトル */
+
+      document.title =
+        t.documentTitle;
 
 
-      document.getElementById("page-title").textContent =
+      /* ページタイトル */
+
+      document.getElementById(
+        "page-title"
+      ).textContent =
         t.pageTitle;
 
 
-      document.getElementById("warning-text").textContent =
+      /* 注意書き */
+
+      document.getElementById(
+        "warning-text"
+      ).textContent =
         t.warning;
 
 
-      document.getElementById("contact-text").innerHTML =
+      /* LINE */
+
+      document.getElementById(
+        "contact-text"
+      ).innerHTML =
         t.contact;
 
 
-      document.getElementById("schedule-note").innerHTML =
+      /* Schedule */
+
+      document.getElementById(
+        "schedule-note"
+      ).innerHTML =
         t.schedule;
 
 
-      document.getElementById("still-note").innerHTML =
+      /* Still説明 */
+
+      document.getElementById(
+        "still-note"
+      ).innerHTML =
         t.stillNote;
 
 
-      document.getElementById("still04-title").textContent =
+      /* Still 04 */
+
+      document.getElementById(
+        "still04-title"
+      ).textContent =
         t.still04;
 
 
-      document.getElementById("line-qr").alt =
+      /* LINE QR */
+
+      document.getElementById(
+        "line-qr"
+      ).alt =
         t.lineAlt;
 
 
-      document.getElementById("calendar-frame").title =
+      /* Calendar */
+
+      document.getElementById(
+        "calendar-frame"
+      ).title =
         t.calendarTitle;
 
 
-      document.getElementById("footer-text").textContent =
+      /* Footer */
+
+      document.getElementById(
+        "footer-text"
+      ).textContent =
         t.footer;
 
 
-      document.querySelectorAll(".tap-guide").forEach((item) => {
+      /* スマホの再生説明 */
 
-        item.textContent = t.tap;
+      document.querySelectorAll(
+        ".tap-guide"
+      ).forEach((item) => {
+
+        item.textContent =
+          t.tap;
 
       });
 
 
-      document.getElementById("lang-jp").classList.toggle(
-        "active",
-        lang === "ja"
+      /* =========================
+         ボタン表示
+      ========================== */
+
+      const languageButtons = [
+        "ja",
+        "en",
+        "th",
+        "ko"
+      ];
+
+
+      languageButtons.forEach(
+        (language) => {
+
+          const button =
+            document.getElementById(
+              "lang-" + language
+            );
+
+
+          if (button) {
+
+            button.classList.toggle(
+              "active",
+              language === lang
+            );
+
+          }
+
+        }
       );
 
 
-      document.getElementById("lang-en").classList.toggle(
-        "active",
-        lang === "en"
-      );
-
+      /* =========================
+         選択言語を保存
+      ========================== */
 
       if (save) {
 
@@ -782,10 +993,18 @@
 
 
 
+    /* =========================
+       初回の言語自動判定
+    ========================== */
+
     function detectLanguage() {
 
       let savedLanguage = null;
 
+
+      /* =========================
+         過去に手動選択した言語を確認
+      ========================== */
 
       try {
 
@@ -802,13 +1021,17 @@
 
 
       /*
-        手動で選んだ言語が保存されている場合は、
-        その設定を最優先
+        過去に
+        JP / EN / TH / KO
+        のどれかを選んでいた場合は
+        その言語を最優先
       */
 
       if (
         savedLanguage === "ja" ||
-        savedLanguage === "en"
+        savedLanguage === "en" ||
+        savedLanguage === "th" ||
+        savedLanguage === "ko"
       ) {
 
         setLanguage(
@@ -821,10 +1044,9 @@
       }
 
 
-      /*
-        初回アクセス時は
-        ブラウザの優先言語を確認
-      */
+      /* =========================
+         ブラウザの優先言語を取得
+      ========================== */
 
       let browserLanguage = "ja";
 
@@ -837,7 +1059,9 @@
         browserLanguage =
           navigator.languages[0];
 
-      } else if (navigator.language) {
+      } else if (
+        navigator.language
+      ) {
 
         browserLanguage =
           navigator.language;
@@ -849,12 +1073,45 @@
         browserLanguage.toLowerCase();
 
 
-      /*
-        英語環境なら英語
-        それ以外は日本語
-      */
+      /* =========================
+         自動振り分け
+
+         日本語 → JP
+         英語   → EN
+         タイ語 → TH
+         韓国語 → KO
+
+         その他 → JP
+      ========================== */
+
 
       if (
+        browserLanguage === "th" ||
+        browserLanguage.startsWith("th-")
+      ) {
+
+        setLanguage(
+          "th",
+          false
+        );
+
+      }
+
+
+      else if (
+        browserLanguage === "ko" ||
+        browserLanguage.startsWith("ko-")
+      ) {
+
+        setLanguage(
+          "ko",
+          false
+        );
+
+      }
+
+
+      else if (
         browserLanguage === "en" ||
         browserLanguage.startsWith("en-")
       ) {
@@ -864,7 +1121,10 @@
           false
         );
 
-      } else {
+      }
+
+
+      else {
 
         setLanguage(
           "ja",
@@ -889,7 +1149,9 @@
   <script>
 
     const sliders =
-      document.querySelectorAll(".slider");
+      document.querySelectorAll(
+        ".slider"
+      );
 
 
     const hasMouse =
@@ -901,7 +1163,9 @@
     sliders.forEach((slider) => {
 
       const images =
-        slider.querySelectorAll("img");
+        slider.querySelectorAll(
+          "img"
+        );
 
 
       let current = 0;
@@ -909,23 +1173,36 @@
       let timer = null;
 
 
+      /* =========================
+         次の画像
+      ========================== */
+
       function nextImage() {
 
-        images[current].classList.remove(
-          "active"
-        );
+        images[current]
+          .classList
+          .remove(
+            "active"
+          );
 
 
         current =
-          (current + 1) % images.length;
+          (current + 1) %
+          images.length;
 
 
-        images[current].classList.add(
-          "active"
-        );
+        images[current]
+          .classList
+          .add(
+            "active"
+          );
 
       }
 
+
+      /* =========================
+         再生
+      ========================== */
 
       function startSlider() {
 
@@ -948,6 +1225,10 @@
       }
 
 
+      /* =========================
+         停止
+      ========================== */
+
       function stopSlider() {
 
         if (!timer) {
@@ -957,12 +1238,20 @@
         }
 
 
-        clearInterval(timer);
+        clearInterval(
+          timer
+        );
+
 
         timer = null;
 
       }
 
+
+      /* =========================
+         PC
+         マウスを乗せると再生
+      ========================== */
 
       if (hasMouse) {
 
@@ -977,7 +1266,15 @@
           stopSlider
         );
 
-      } else {
+      }
+
+
+      /* =========================
+         スマートフォン
+         タップで再生 / 停止
+      ========================== */
+
+      else {
 
         slider.addEventListener(
           "click",
